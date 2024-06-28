@@ -1,0 +1,5 @@
+{
+  "template_path": "templates/invoice_template.html",
+  "output_html": "invoice.html",
+  "output_pdf": "invoice.pdf"
+}

@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Invoice</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+      }
+      .invoice-box {
+        width: 100%;
+        padding: 30px;
+        border: 1px solid #eee;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.15);
+      }
+      .logo {
+        width: 100px;
+      }
+      table {
+        width: 100%;
+        line-height: inherit;
+        text-align: left;
+        border-collapse: collapse;
+      }
+      table th,
+      table td {
+        padding: 8px;
+        border: 1px solid #ddd;
+      }
+      .right-align {
+        text-align: right;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="invoice-box">
+      <table cellpadding="0" cellspacing="0">
+        <tr>
+          <td colspan="2">
+            <img src="{{ logo_url }}" alt="Company Logo" class="logo" />
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <h2>Invoice</h2>
+            <strong>Invoice No.:</strong> {{ invoice_no }}<br />
+            <strong>Invoice Date:</strong> {{ invoice_date }}<br />
+            <strong>Order No.:</strong> {{ order_no }}<br />
+            <strong>Order Date:</strong> {{ order_date }}
+          </td>
+          <td class="right-align">
+            <strong>Seller:</strong><br />
+            {{ seller_name }}<br />
+            {{ seller_address }}<br />
+            {{ seller_city }}, {{ seller_state }} - {{ seller_pincode }}<br />
+            <strong>PAN No.:</strong> {{ seller_pan }}<br />
+            <strong>GST Registration No.:</strong> {{ seller_gst }}
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <strong>Billing Details:</strong><br />
+            {{ billing_name }}<br />
+            {{ billing_address }}<br />
+            {{ billing_city }}, {{ billing_state }} - {{ billing_pincode }}<br />
+            <strong>State/UT Code:</strong> {{ billing_state_code }}
+          </td>
+          <td class="right-align">
+            <strong>Shipping Details:</strong><br />
+            {{ shipping_name }}<br />
+            {{ shipping_address }}<br />
+            {{ shipping_city }}, {{ shipping_state }} - {{ shipping_pincode
+            }}<br />
+            <strong>State/UT Code:</strong> {{ shipping_state_code }}
+          </td>
+        </tr>
+      </table>
+      <br />
+      <table>
+        <thead>
+          <tr>
+            <th>Description</th>
+            <th>Unit Price</th>
+            <th>Quantity</th>
+            <th>Discount</th>
+            <th>Net Amount</th>
+            <th>Tax Rate</th>
+            <th>CGST</th>
+            <th>SGST</th>
+            <th>IGST</th>
+            <th>Total Amount</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for item in items %}
+          <tr>
+            <td>{{ item.description }}</td>
+            <td>{{ item.unit_price }}</td>
+            <td>{{ item.quantity }}</td>
+            <td>{{ item.discount }}</td>
+            <td>{{ item.net_amount }}</td>
+            <td>{{ item.tax_rate }}%</td>
+            <td>{{ item.cgst_amount }}</td>
+            <td>{{ item.sgst_amount }}</td>
+            <td>{{ item.igst_amount }}</td>
+            <td>{{ item.total_amount }}</td>
+          </tr>
+          {% endfor %}
+          <tr>
+            <td colspan="9" class="right-align"><strong>Total</strong></td>
+            <td>{{ total_amount }}</td>
+          </tr>
+          <tr>
+            <td colspan="9" class="right-align">
+              <strong>Amount in Words</strong>
+            </td>
+            <td>{{ amount_in_words }}</td>
+          </tr>
+        </tbody>
+      </table>
+      <br />
+      <p><strong>Reverse Charge:</strong> {{ reverse_charge }}</p>
+      <p><strong>Place of Supply:</strong> {{ place_of_supply }}</p>
+      <p><strong>Place of Delivery:</strong> {{ place_of_delivery }}</p>
+      <br /><br />
+      <p>For <strong>{{ seller_name }}</strong>:</p>
+      <img src="{{ signature_url }}" alt="Signature" style="width: 100px" />
+      <p>Authorised Signatory</p>
+    </div>
+  </body>
+</html>
